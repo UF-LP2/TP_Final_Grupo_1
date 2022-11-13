@@ -68,6 +68,7 @@ namespace tp_final
                 for (int h=0;h<11;h++)
                 {
                     Console.Write(matriz_beneficio[h,q]);
+                    Console.Write(" ");
                 }
                 Console.WriteLine("");
             }
