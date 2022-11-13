@@ -8,13 +8,29 @@ namespace tp_final
 {
     internal class cPaquete
     {
-        protected float volumen;
+        protected double volumen;
         protected string tipo;
         protected float peso;
-        protected int prioridad;
-        protected float beneficio;
         protected bool apilable;
         protected bool necesita_elevador;
-              
-    }
+
+        public cPaquete(string _tipo, double _volumen, float _peso, bool _apilable, bool _necesita_elevador)
+        {
+            volumen = _volumen;
+            tipo = _tipo;
+            peso = _peso;
+            apilable = _apilable;
+            necesita_elevador = _necesita_elevador;
+        }
+
+    public float getPeso()
+        {
+            return peso;
+        }
+        public double getVolumen()
+        {
+            return volumen;
+        }
+    
+}
 }

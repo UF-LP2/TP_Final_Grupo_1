@@ -9,7 +9,7 @@ namespace tp_final
     internal class cCamioneta:cVehiculo
     {
         private int distancia;
-        cCamioneta() : base(2, 456, 45, 267, 0, 67)
+        cCamioneta() : base(2, 456, 45, 267)
         {
             distancia = 186;
         }

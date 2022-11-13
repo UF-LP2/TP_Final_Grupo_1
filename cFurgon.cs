@@ -9,7 +9,7 @@ namespace tp_final
     internal class cFurgon: cVehiculo  
     {
         private bool montacargas;
-        public cFurgon() : base(11,13, 54, 67,666, 123)
+        public cFurgon() : base(11,13, 54, 67)
         {
             this.montacargas = false;
         }

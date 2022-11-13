@@ -8,11 +8,13 @@ namespace tp_final
 {
     internal class cFurgoneta:cVehiculo
     {
-        private string color;
-        cFurgoneta(string color): base(1,12,123,1234,0,1400)
+        private float volumen;
+        private bool montacargas;
+        cFurgoneta(float _volumen,bool _montacargas): base(1,12,123,1234)
 
         {
-            this.color = color;
+            volumen=_volumen;
+            montacargas = _montacargas;
         }
 
     }
