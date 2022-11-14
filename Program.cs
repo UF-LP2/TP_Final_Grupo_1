@@ -8,8 +8,11 @@ static class Program
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
-    [STAThread]
-    
+    //[STAThread]
+    public enum barrios
+    {
+       Lineres, Comuna01, Comuna02, Comuna03, Comuna04, Comuna05, Comuna06, Comuna07, Comuna08, Comuna09, Comuna10, Comuna11, Comuna12, Comuna13, Comuna14,Avellaneda,SanMartin,LaMatanza,Lanus,Lomas,Moron,SanIsidro,TresFebrero,Vilo,OroVerde
+    }
     static void Main()
     {
         // To customize application configuration such as set high DPI settings or default font,
@@ -27,13 +30,13 @@ static class Program
         cPaquete Freezer = new cPaquete("Freezer", 1.5, 60, true, true);
         cPaquete Heladera = new cPaquete("Heladera", 2, 70, true, true);
 
-        cPedido Pedido1 = new cPedido(1,"Pepe",Cocina);
-        cPedido Pedido2 = new cPedido(2, "Pepe", Calefon);
-        cPedido Pedido3 = new cPedido(2, "Pepe", Termotanque);
-        cPedido Pedido4 = new cPedido(3, "Pepe", Lavarropa);
-        cPedido Pedido5 = new cPedido(1, "Pepe", Secarropa);
-        cPedido Pedido6 = new cPedido(2, "Pepe", Freezer);
-        cPedido Pedido7 = new cPedido(3, "Pepe", Heladera);
+        cPedido Pedido1 = new cPedido(1,"Pepe",Cocina,cPedido.barrios.Comuna01);
+        cPedido Pedido2 = new cPedido(2, "Pepe", Calefon, cPedido.barrios.Lanus);
+        cPedido Pedido3 = new cPedido(2, "Pepe", Termotanque,cPedido.barrios.Avellaneda);
+        cPedido Pedido4 = new cPedido(3, "Pepe", Lavarropa, cPedido.barrios.Lomas);
+        cPedido Pedido5 = new cPedido(1, "Pepe", Secarropa, cPedido.barrios.SanIsidro);
+        cPedido Pedido6 = new cPedido(2, "Tadeo", Freezer, cPedido.barrios.OroVerde);
+        cPedido Pedido7 = new cPedido(3, "Cuba", Heladera, cPedido.barrios.Comuna06);
 
         List<cPedido> Almacen = new List<cPedido>();
 
@@ -46,10 +49,10 @@ static class Program
         Almacen.Add(Pedido7);
 
         Furgoneta.CargarVehiculo(Almacen,7);
-
-        cPedido Pedido8 = new cPedido(3, "Pepe", Heladera);
+        
         
 
+        Furgoneta.recorrido(Almacen, cPedido.barrios.Avellaneda, cPedido.barrios.Moron);
     }
 
    

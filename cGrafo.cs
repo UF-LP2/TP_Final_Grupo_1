@@ -20,10 +20,9 @@ namespace tp_final
             restador = new int[cantnodos];
         }
 
-        public void agregardistanciabarrio(int inicio, int final, int pesoentrebarrios)//ver como con un enum poner los barrios
+        public void agregardistanciabarrio(cPedido.barrios inicio, cPedido.barrios final, int pesoentrebarrios)//ver como con un enum poner los barrios
         {
-            matrizbarrios[inicio, final] = pesoentrebarrios;
-
+            matrizbarrios[(int)inicio, (int)final] = pesoentrebarrios;
         }
 
         public int sonadyacentes(int fila, int columna)

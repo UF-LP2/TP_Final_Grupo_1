@@ -120,11 +120,23 @@ namespace tp_final
             }
 
         }
-        public void recorrido(List<cPedido> Almacen, int inicio, int fin)
+        public void recorrido(List<cPedido> Almacen, cPedido.barrios inicio, cPedido.barrios  fin)
         {
+
+            Random rand = new Random(20);
+            int rnm = 0;
+            rnm = rand.Next(1, 100);
             int cont = Almacen.Count;
             cGrafo grafo = new cGrafo(cont);
-           
+            for (int i = 0; i < cont; i++)
+            {
+
+                for (int j = 0; j < cont; j++)
+                {
+                    grafo.agregardistanciabarrio(Almacen[i].getBarrio(), Almacen[j].getBarrio(), rnm);//me da una distancia entre cada barrio, supongo que estan todos conectados
+
+                }
+            }
             int distancia = 0;
             //string dato = "";
             int actual = 0;
@@ -139,8 +151,9 @@ namespace tp_final
                 tablavisitados[i, 1] = int.MaxValue;
                 tablavisitados[i, 2] = 0;
             }
-            // tablavisitados[inicio, 1] = 0; modificar codigo para que me de el primer lugar, normalmente liniers
-            int nodoactual = inicio;
+            int nodoactual = (int)inicio;
+            tablavisitados[(int)inicio, 1] = 0;// modificar codigo para que me de el primer lugar, normalmente liniers
+           
             do
             {
                 tablavisitados[nodoactual, 0] = 1; //visitado
@@ -171,15 +184,15 @@ namespace tp_final
             } while (nodoactual != -1);
             List<int> dijkstra = new List<int>();
 
-            int nodo = fin;
+            int nodo = (int)fin;
             
-            while(nodo!=inicio)
+            while(nodo!=(int)inicio)
             {
                 dijkstra.Add(nodo);
                 nodo=tablavisitados[nodo, 2];
 
             }
-            dijkstra.Add(inicio);
+            dijkstra.Add((int)inicio);
             dijkstra.Reverse();
         }
     }

@@ -13,16 +13,17 @@ namespace tp_final
         protected double beneficio;
         protected string comprador;
         protected cPaquete paquete;
-        protected string barrio;
-        
-        public cPedido(int _prioridad, string _comprador, cPaquete _paquete, string _barrio)
+        protected barrios barrio;
+     
+       
+        public cPedido(int _prioridad, string _comprador, cPaquete _paquete, barrios _barrio)
         {
             prioridad = _prioridad;
             beneficio = (_paquete.getPeso() * _paquete.getVolumen() );
             comprador = _comprador;
             paquete= _paquete;
             barrio= _barrio;
-
+            
         }
 
     public cPaquete GetPaquete()
@@ -34,11 +35,14 @@ namespace tp_final
             return beneficio;
 
         }
-     public string getBarrio()
+     public barrios getBarrio()
         {
             return barrio;
         }
-        
+        public enum barrios
+        {
+            Comuna01, Comuna02, Comuna03, Comuna04, Comuna05, Comuna06, Comuna07, Comuna08, Comuna09, Comuna10, Comuna11, Comuna12, Comuna13, Comuna14, Avellaneda, SanMartin, LaMatanza, Lanus, Lomas, Moron, SanIsidro, TresFebrero, Vilo , OroVerde
+        }
     }
    
 }
