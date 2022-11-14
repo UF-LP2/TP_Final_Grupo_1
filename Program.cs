@@ -48,9 +48,7 @@ static class Program
         Furgoneta.CargarVehiculo(Almacen,7);
 
         cPedido Pedido8 = new cPedido(3, "Pepe", Heladera);
-        Console.WriteLine("hola");
-        Console.WriteLine("gay");
-        Console.WriteLine("hola");
+        
 
     }
 
