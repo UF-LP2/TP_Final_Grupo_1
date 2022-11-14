@@ -49,7 +49,8 @@ static class Program
 
         cPedido Pedido8 = new cPedido(3, "Pepe", Heladera);
         Console.WriteLine("hola");
-        Console.WriteLine("gay")
+        Console.WriteLine("gay");
+        Console.WriteLine("hola");
 
     }
 
