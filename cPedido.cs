@@ -9,6 +9,7 @@ namespace tp_final
 {
     internal class cPedido
     {
+        protected string ID;
         protected int prioridad;
         protected double beneficio;
         protected string comprador;
@@ -16,8 +17,9 @@ namespace tp_final
         protected barrios barrio;
      
        
-        public cPedido(int _prioridad, string _comprador, cPaquete _paquete, barrios _barrio)
+        public cPedido(string _ID,int _prioridad, string _comprador, cPaquete _paquete, barrios _barrio)
         {
+            ID = _ID;
             prioridad = _prioridad;
             beneficio = (_paquete.getPeso() * _paquete.getVolumen() );
             comprador = _comprador;
@@ -42,6 +44,10 @@ namespace tp_final
         public enum barrios
         {
             Comuna01, Comuna02, Comuna03, Comuna04, Comuna05, Comuna06, Comuna07, Comuna08, Comuna09, Comuna10, Comuna11, Comuna12, Comuna13, Comuna14,Comuna15, Avellaneda, SanMartin, LaMatanza, Lanus, Lomas, Moron, SanIsidro, TresFebrero, Vilo , 
+        }
+        public string getID()
+        {
+            return ID;
         }
     }
    

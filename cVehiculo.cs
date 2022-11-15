@@ -18,15 +18,21 @@ namespace tp_final
         protected double volumen;
         protected int nodosrecorridos;
         protected int tanquelleno;
+        public List<cPedido> Pedidos_a_bordo;
+
         public cVehiculo(int iD, double _volumen, int nodosrecorridos, int tanquelleno)
         {
             ID = iD;
             volumen = _volumen;
             this.nodosrecorridos = 0; //arranca siempre en 0
             this.tanquelleno = tanquelleno;
+            Pedidos_a_bordo = new List<cPedido>();
+
+
         }
         public void CargarVehiculo(List<cPedido> Almacen, int N)
         {
+            string[,] lista_productos = new string[(int)(volumen / 0.5), N];
             double[,] matriz_beneficio = new double[(int)(volumen / 0.5), N];
             double volumen_actual = 0.5;
             for (int i = 0; i < N; i++)
@@ -38,6 +44,7 @@ namespace tp_final
                     if (i == 0 && Almacen[i].GetPaquete().getVolumen() <= volumen_actual)
                     {
                         matriz_beneficio[j, i] = Almacen[i].getBeneficio();
+                        lista_productos[j, i] = Almacen[i].getID() + ",";
 
                     }
                     if (i > 0)
@@ -51,6 +58,7 @@ namespace tp_final
                                 )
                             {
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
+                                lista_productos[j, i] = lista_productos[j, i - 1];
                             }
                             //no entra el nuevo y no es la primera columna
 
@@ -63,11 +71,13 @@ namespace tp_final
                             if (Almacen[i].getBeneficio() >= matriz_beneficio[j, i - 1])
                             {
                                 matriz_beneficio[j, i] = Almacen[i].getBeneficio();
+                                lista_productos[j, i] = Almacen[i].getID() + ",";
                             }
                             //caso entro justo y no es mejor que el de arriba
                             if (Almacen[i].getBeneficio() < matriz_beneficio[j, i - 1])
                             {
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
+                                lista_productos[j, i] = lista_productos[j, i - 1];
                             }
                         }
                         //caso entra el nuevo y mas
@@ -79,6 +89,7 @@ namespace tp_final
                             {
 
                                 matriz_beneficio[j, i] = Almacen[i].getBeneficio() + matriz_beneficio[((int)((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5)) - 1, i - 1];
+                                lista_productos[j, i] = lista_productos[((int)((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5)) - 1, i - 1] + Almacen[i].getID() + ",";
                             }
                             //caso no conviene meter el nuevo
                             if (Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5) - 1), i - 1] < matriz_beneficio[j, i - 1] ||
@@ -86,6 +97,7 @@ namespace tp_final
                             {
 
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
+                                lista_productos[j, i] = lista_productos[j, i - 1];
                             }
                         }
                         //caso entra pero no justo ni deja espacio para otra cosa
@@ -95,11 +107,13 @@ namespace tp_final
                             if (Almacen[i].getBeneficio() >= matriz_beneficio[j, i - 1])
                             {
                                 matriz_beneficio[j, i] = Almacen[i].getBeneficio();
+                                lista_productos[j, i] = Almacen[i].getID() + ",";
                             }
                             //caso entro justo y no es mejor que el de arriba
                             if (Almacen[i].getBeneficio() < matriz_beneficio[j, i - 1])
                             {
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
+                                lista_productos[j, i] = lista_productos[j, i - 1];
                             }
                         }
 
@@ -119,8 +133,26 @@ namespace tp_final
                 Console.WriteLine("");
             }
 
+
+            string codigos = lista_productos[(int)(volumen / 0.5) - 1, N - 1];
+            string[] Codigos = codigos.Split(",");
+
+            for (int w = 0; w < Codigos.Length; w++)
+            {
+                Console.WriteLine(Codigos[w]);
+                for (int i = 0; i < N; i++)
+                {
+
+                    if (Almacen[i].getID() == Codigos[w]) Pedidos_a_bordo.Add(Almacen[i]);
+                }
+            }
+
+
+
+
+
         }
-        public void recorrido(List<cPedido> Almacen, cPedido.barrios inicio, cPedido.barrios  fin)
+        public void recorrido(List<cPedido> Almacen, cPedido.barrios inicio, cPedido.barrios fin)
         {
 
             Random rand = new Random(20);
@@ -128,7 +160,7 @@ namespace tp_final
             rnm = rand.Next(1, 37);
             int cont = Almacen.Count;
             cGrafo grafo = new cGrafo(24);//cantidad de barrios para visitar
-            
+
             int distancia = 0;
             //string dato = "";
             int actual = 0;
@@ -144,7 +176,7 @@ namespace tp_final
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna13, 23);
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Comuna12, 21);
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Vilo, 16);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Comuna11, 11); 
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Comuna11, 11);
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.SanMartin, 22);
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Vilo, 17);
             grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.TresFebrero, 15);
@@ -209,7 +241,7 @@ namespace tp_final
             }
             int nodoactual = (int)inicio;
             tablavisitados[(int)inicio, 1] = 0;// modificar codigo para que me de el primer lugar, normalmente liniers
-           
+
             do
             {
                 tablavisitados[nodoactual, 0] = 1; //visitado
@@ -241,16 +273,18 @@ namespace tp_final
             List<int> dijkstra = new List<int>();
 
             int nodo = (int)fin;
-            
-            while(nodo!=(int)inicio)
+
+            while (nodo != (int)inicio)
             {
                 dijkstra.Add(nodo);
-                nodo=tablavisitados[nodo, 2];
+                nodo = tablavisitados[nodo, 2];
 
             }
             dijkstra.Add((int)inicio);
             dijkstra.Reverse();
         }
     }
+    
+
 }
 

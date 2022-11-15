@@ -31,6 +31,11 @@ namespace tp_final
         {
             return volumen;
         }
+        public string getNombre()
+        {
+            return tipo;
+
+        }
     
 }
 }
