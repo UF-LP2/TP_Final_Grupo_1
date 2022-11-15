@@ -12,26 +12,36 @@ namespace tp_final
         protected string ID;
         protected int prioridad;
         protected double beneficio;
-        protected string comprador;
-        protected cPaquete paquete;
         protected barrios barrio;
-     
+        protected double volumen;
+        protected string tipo;
+        protected float peso;
+        protected bool apilable;
+        protected bool necesita_elevador;
+        public float precio { get; set; }
+        public float largo { get; set; }
+        public float ancho { get; set; }
+        public float alto { get; set; }
        
-        public cPedido(string _ID,int _prioridad, string _comprador, cPaquete _paquete, barrios _barrio)
+        
+        public DateTime fecha { get; set; }
+
+
+        public cPedido(string _ID,int _prioridad, string _comprador, barrios _barrio, string _tipo, double _volumen, float _peso, bool _apilable, bool _necesita_elevador)
         {
             ID = _ID;
             prioridad = _prioridad;
-            beneficio = (_paquete.getPeso() * _paquete.getVolumen() );
-            comprador = _comprador;
-            paquete= _paquete;
+            beneficio = (volumen*peso)/prioridad;
             barrio= _barrio;
-            
+            volumen = _volumen;
+            tipo = _tipo;
+            peso = _peso;
+            apilable = _apilable;
+            necesita_elevador = _necesita_elevador;
+
         }
 
-    public cPaquete GetPaquete()
-        { 
-            return paquete;
-        }
+   
     public double getBeneficio()
         {
             return beneficio;
@@ -48,6 +58,19 @@ namespace tp_final
         public string getID()
         {
             return ID;
+        }
+        public float getPeso()
+        {
+            return peso;
+        }
+        public double getVolumen()
+        {
+            return volumen;
+        }
+        public string getNombre()
+        {
+            return tipo;
+
         }
     }
    

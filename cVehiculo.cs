@@ -30,8 +30,9 @@ namespace tp_final
 
 
         }
-        public void CargarVehiculo(List<cPedido> Almacen, int N)
+        public void CargarVehiculo(List<cPedido> Almacen)
         {
+            int N = Almacen.Count;
             string[,] lista_productos = new string[(int)(volumen / 0.5), N];
             double[,] matriz_beneficio = new double[(int)(volumen / 0.5), N];
             double volumen_actual = 0.5;
@@ -41,7 +42,7 @@ namespace tp_final
                 for (int j = 0; j < 11; j++)
                 {
                     //solo primera fila
-                    if (i == 0 && Almacen[i].GetPaquete().getVolumen() <= volumen_actual)
+                    if (i == 0 && Almacen[i].getVolumen() <= volumen_actual)
                     {
                         matriz_beneficio[j, i] = Almacen[i].getBeneficio();
                         lista_productos[j, i] = Almacen[i].getID() + ",";
@@ -51,10 +52,10 @@ namespace tp_final
                     {
 
                         // caso no entra el nuevo
-                        if (Almacen[i].GetPaquete().getVolumen() > volumen_actual)
+                        if (Almacen[i].getVolumen() > volumen_actual)
                         {
                             //no entra el nuevo y es la primera columna
-                            if (Almacen[i].GetPaquete().getVolumen() > volumen_actual
+                            if (Almacen[i].getVolumen() > volumen_actual
                                 )
                             {
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
@@ -64,7 +65,7 @@ namespace tp_final
 
                         }
                         //caso entra justo el nuevo
-                        if (Almacen[i].GetPaquete().getVolumen() == volumen_actual)
+                        if (Almacen[i].getVolumen() == volumen_actual)
                         {
 
                             //caso entra el nuevo y es mejor que la suma de los viejos
@@ -81,19 +82,19 @@ namespace tp_final
                             }
                         }
                         //caso entra el nuevo y mas
-                        if (Almacen[i].GetPaquete().getVolumen() + 0.5 <= volumen_actual)
+                        if (Almacen[i].getVolumen() + 0.5 <= volumen_actual)
                         {
                             //caso el nuevo y la combinacion de los otros es mejor
-                            if (Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5) - 1), i - 1] >= matriz_beneficio[j, i - 1] &&
-                               Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5) - 1), i - 1] >= matriz_beneficio[j - 1, i])
+                            if (Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].getVolumen()) / 0.5) - 1), i - 1] >= matriz_beneficio[j, i - 1] &&
+                               Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].getVolumen()) / 0.5) - 1), i - 1] >= matriz_beneficio[j - 1, i])
                             {
 
-                                matriz_beneficio[j, i] = Almacen[i].getBeneficio() + matriz_beneficio[((int)((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5)) - 1, i - 1];
-                                lista_productos[j, i] = lista_productos[((int)((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5)) - 1, i - 1] + Almacen[i].getID() + ",";
+                                matriz_beneficio[j, i] = Almacen[i].getBeneficio() + matriz_beneficio[((int)((volumen_actual - Almacen[i].getVolumen()) / 0.5)) - 1, i - 1];
+                                lista_productos[j, i] = lista_productos[((int)((volumen_actual - Almacen[i].getVolumen()) / 0.5)) - 1, i - 1] + Almacen[i].getID() + ",";
                             }
                             //caso no conviene meter el nuevo
-                            if (Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5) - 1), i - 1] < matriz_beneficio[j, i - 1] ||
-                               Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].GetPaquete().getVolumen()) / 0.5) - 1), i - 1] < matriz_beneficio[j - 1, i])
+                            if (Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].getVolumen()) / 0.5) - 1), i - 1] < matriz_beneficio[j, i - 1] ||
+                               Almacen[i].getBeneficio() + matriz_beneficio[(int)(((volumen_actual - Almacen[i].getVolumen()) / 0.5) - 1), i - 1] < matriz_beneficio[j - 1, i])
                             {
 
                                 matriz_beneficio[j, i] = matriz_beneficio[j, i - 1];
@@ -101,7 +102,7 @@ namespace tp_final
                             }
                         }
                         //caso entra pero no justo ni deja espacio para otra cosa
-                        if (Almacen[i].GetPaquete().getVolumen() < volumen_actual && Almacen[i].GetPaquete().getVolumen() + 0.5 > volumen_actual)
+                        if (Almacen[i].getVolumen() < volumen_actual && Almacen[i].getVolumen() + 0.5 > volumen_actual)
                         {
                             //caso entra el nuevo y es mejor que la suma de los viejos
                             if (Almacen[i].getBeneficio() >= matriz_beneficio[j, i - 1])
