@@ -35,7 +35,7 @@ static class Program
         cPedido Pedido3 = new cPedido(2, "Pepe", Termotanque,cPedido.barrios.Avellaneda);
         cPedido Pedido4 = new cPedido(3, "Pepe", Lavarropa, cPedido.barrios.Lomas);
         cPedido Pedido5 = new cPedido(1, "Pepe", Secarropa, cPedido.barrios.SanIsidro);
-        cPedido Pedido6 = new cPedido(2, "Tadeo", Freezer, cPedido.barrios.OroVerde);
+        cPedido Pedido6 = new cPedido(2, "Tadeo", Freezer, cPedido.barrios.Comuna03);
         cPedido Pedido7 = new cPedido(3, "Cuba", Heladera, cPedido.barrios.Comuna06);
 
         List<cPedido> Almacen = new List<cPedido>();

@@ -125,22 +125,78 @@ namespace tp_final
 
             Random rand = new Random(20);
             int rnm = 0;
-            rnm = rand.Next(1, 100);
+            rnm = rand.Next(1, 37);
             int cont = Almacen.Count;
-            cGrafo grafo = new cGrafo(cont);
-            for (int i = 0; i < cont; i++)
-            {
-
-                for (int j = 0; j < cont; j++)
-                {
-                    grafo.agregardistanciabarrio(Almacen[i].getBarrio(), Almacen[j].getBarrio(), rnm);//me da una distancia entre cada barrio, supongo que estan todos conectados
-
-                }
-            }
+            cGrafo grafo = new cGrafo(24);//cantidad de barrios para visitar
+            
             int distancia = 0;
             //string dato = "";
             int actual = 0;
             int columna = 0;
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna14, 4);//en km
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna12, 6);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna13, 8);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna11, 7);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna06, 10);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna05, 9);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna02, 3);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna05, 5);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna13, 23);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Comuna12, 21);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Vilo, 16);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Comuna11, 11); 
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.SanMartin, 22);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Vilo, 17);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.TresFebrero, 15);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna10, 24);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.SanMartin, 3);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna07, 6);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna06, 16);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.TresFebrero, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.Comuna09, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.Comuna07, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.Comuna08, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.LaMatanza, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.Comuna07, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.TresFebrero, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.LaMatanza, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Lomas, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Comuna07, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Lanus, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Comuna04, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna04, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna06, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna05, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna06, cPedido.barrios.Comuna05, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna04, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna03, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna02, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Comuna03, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Comuna01, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Lanus, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna03, cPedido.barrios.Comuna02, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna03, cPedido.barrios.Comuna01, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Comuna02, cPedido.barrios.Comuna01, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Avellaneda, cPedido.barrios.Lanus, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.SanMartin, cPedido.barrios.Vilo, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.SanMartin, cPedido.barrios.TresFebrero, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.Lomas, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.Moron, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.TresFebrero, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Lomas, cPedido.barrios.Lanus, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.Moron, cPedido.barrios.TresFebrero, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.SanIsidro, cPedido.barrios.Vilo, rnm);
+            grafo.agregardistanciabarrio(cPedido.barrios.SanIsidro, cPedido.barrios.SanMartin, rnm);
+
+
+
+
+
+
+
+
+
+
 
 
             int[,] tablavisitados = new int[cont, 3]; //pos 0 si se visito  pos 1distancia  // pos 2 se ve el anterior nodo

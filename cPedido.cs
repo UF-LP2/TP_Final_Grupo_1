@@ -41,7 +41,7 @@ namespace tp_final
         }
         public enum barrios
         {
-            Comuna01, Comuna02, Comuna03, Comuna04, Comuna05, Comuna06, Comuna07, Comuna08, Comuna09, Comuna10, Comuna11, Comuna12, Comuna13, Comuna14, Avellaneda, SanMartin, LaMatanza, Lanus, Lomas, Moron, SanIsidro, TresFebrero, Vilo , OroVerde
+            Comuna01, Comuna02, Comuna03, Comuna04, Comuna05, Comuna06, Comuna07, Comuna08, Comuna09, Comuna10, Comuna11, Comuna12, Comuna13, Comuna14,Comuna15, Avellaneda, SanMartin, LaMatanza, Lanus, Lomas, Moron, SanIsidro, TresFebrero, Vilo , 
         }
     }
    
