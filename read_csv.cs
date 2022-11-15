@@ -30,6 +30,8 @@ namespace csvfiles {
 
 
                     };
+                    record.volumen = record.alto * record.ancho * record.largo;
+                    record.beneficio = (record.volumen * record.peso);
                     records.Add(record);
                 }
 
@@ -56,16 +58,6 @@ public class cPedido {
     public float ancho { get; set; }
     public float alto { get; set; }
     public DateTime fecha { get; set; }
-    public cPedido()
-    {
-        
-        volumen = alto * ancho * largo;
-        beneficio = (volumen * peso) ;
-     
-
-    }
-
-
     public double getBeneficio()
     {
         return beneficio;

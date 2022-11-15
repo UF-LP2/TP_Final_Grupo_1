@@ -1,2 +1,8 @@
 producto,precio,ancho,largo,alto,prioridad,barrio,peso,ID
-licuadoras,15223.10,64.33,79.05,74.15,express,comuna 12,45.2,001
+Cocina,15223.10,1,1,0.5,express,comuna 12,40,001
+Calefon,15223.10,1,1,0.5,express,comuna 12,45,002
+Termotanque,15223.10,1,1,0.75,express,comuna 12,45,003
+Lavarropa,15223.10,1,1,1,express,comuna 12,45,004
+Secarropa,15223.10,1,1,1,express,comuna 12,50,005
+Freezer,15223.10,1,1,1.5,express,comuna 12,60,006
+Heladera,15223.10,1,1,2,express,comuna 12,70,007
