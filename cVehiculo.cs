@@ -1,6 +1,8 @@
-﻿using System;
+﻿using csvfiles;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +13,19 @@ using System.Transactions;
 
 namespace tp_final
 {
+    public class cbarrios
+    {
+        public string barriardo;
+        public double x { get; set;}
+        public double y { get; set;}
+
+        public cbarrios(string _barriardo, double _x, double _y)
+        {
+            this.barriardo = _barriardo;
+            this.x = _x;
+            this.y =_y;
+        }
+    }
     public class cVehiculo
     {
         protected readonly int ID;
@@ -133,158 +148,107 @@ namespace tp_final
                 Console.WriteLine("");
             }
 
-           
-                string codigos = lista_productos[(int)(volumen / 0.5) - 1, Almacen.Count - 1];
-                string[] Codigos = codigos.Split(",");
 
-                for (int w = 0; w < Codigos.Length; w++)
+            string codigos = lista_productos[(int)(volumen / 0.5) - 1, Almacen.Count - 1];
+            string[] Codigos = codigos.Split(",");
+
+            for (int w = 0; w < Codigos.Length; w++)
+            {
+                Console.WriteLine(Codigos[w]);
+                for (int i = 0; i < Almacen.Count; i++)
                 {
-                    Console.WriteLine(Codigos[w]);
-                    for (int i = 0; i < Almacen.Count; i++)
-                    {
 
-                        if (Almacen[i].getID() == Codigos[w])
-                        {
-                            Pedidos_a_bordo.Add(Almacen[i]);
-                            Almacen.Remove(Almacen[i]);
-                        }
+                    if (Almacen[i].getID() == Codigos[w])
+                    {
+                        Pedidos_a_bordo.Add(Almacen[i]);
+                        Almacen.Remove(Almacen[i]);
                     }
-                
+                }
+
             }
 
         }
-        public void recorrido(List<cPedido> Almacen, cPedido.barrios inicio, cPedido.barrios fin)
+        public double calculardistancia(cPedido pedido1,cPedido pedido2 )
         {
-
-            Random rand = new Random(20);
-            int rnm = 0;
-            rnm = rand.Next(1, 37);
-            int cont = Almacen.Count;
-            cGrafo grafo = new cGrafo(24);//cantidad de barrios para visitar
-
-            int distancia = 0;
-            //string dato = "";
-            int actual = 0;
-            int columna = 0;
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna14, 4);//en km
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna12, 6);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna13, 8);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna11, 7);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna06, 10);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna15, cPedido.barrios.Comuna05, 9);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna02, 3);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna05, 5);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna14, cPedido.barrios.Comuna13, 23);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Comuna12, 21);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna13, cPedido.barrios.Vilo, 16);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Comuna11, 11);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.SanMartin, 22);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna12, cPedido.barrios.Vilo, 17);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.TresFebrero, 15);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna10, 24);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.SanMartin, 3);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna07, 6);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna11, cPedido.barrios.Comuna06, 16);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.TresFebrero, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.Comuna09, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna10, cPedido.barrios.Comuna07, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.Comuna08, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.LaMatanza, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.Comuna07, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna09, cPedido.barrios.TresFebrero, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.LaMatanza, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Lomas, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Comuna07, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Lanus, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna08, cPedido.barrios.Comuna04, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna04, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna06, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna07, cPedido.barrios.Comuna05, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna06, cPedido.barrios.Comuna05, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna04, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna03, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna05, cPedido.barrios.Comuna02, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Comuna03, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Comuna01, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna04, cPedido.barrios.Lanus, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna03, cPedido.barrios.Comuna02, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna03, cPedido.barrios.Comuna01, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Comuna02, cPedido.barrios.Comuna01, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Avellaneda, cPedido.barrios.Lanus, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.SanMartin, cPedido.barrios.Vilo, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.SanMartin, cPedido.barrios.TresFebrero, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.Lomas, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.Moron, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.LaMatanza, cPedido.barrios.TresFebrero, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Lomas, cPedido.barrios.Lanus, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.Moron, cPedido.barrios.TresFebrero, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.SanIsidro, cPedido.barrios.Vilo, rnm);
-            grafo.agregardistanciabarrio(cPedido.barrios.SanIsidro, cPedido.barrios.SanMartin, rnm);
-
-
-
-
-
-
-
-
-
-
-
-
-            int[,] tablavisitados = new int[cont, 3]; //pos 0 si se visito  pos 1distancia  // pos 2 se ve el anterior nodo
-
-            for (int i = 0; i < cont; i++)
-            {
-                tablavisitados[i, 0] = 0;
-                tablavisitados[i, 1] = int.MaxValue;
-                tablavisitados[i, 2] = 0;
-            }
-            int nodoactual = (int)inicio;
-            tablavisitados[(int)inicio, 1] = 0;// modificar codigo para que me de el primer lugar, normalmente liniers
-
-            do
-            {
-                tablavisitados[nodoactual, 0] = 1; //visitado
-                for (columna = 0; columna < cont; columna++)
-                {
-                    if (grafo.sonadyacentes(actual, columna) != 0)
-                    {
-                        distancia = grafo.sonadyacentes(actual, columna) + tablavisitados[nodoactual, 1];
-                    }
-                    if (distancia < tablavisitados[columna, 1])
-                    {
-                        tablavisitados[columna, 1] = distancia;
-                        tablavisitados[columna, 2] = nodoactual;
-                    }
-
-                }
-                int indicemenor = -1;
-                int distanciamenor = int.MaxValue;
-                for (int j = 0; j < cont; j++)
-                {
-                    if (tablavisitados[j, 1] < distanciamenor && tablavisitados[j, 0] == 0)
-                    {
-                        indicemenor = j;
-                        distanciamenor = tablavisitados[j, 1];
-                    }
-                }
-                nodoactual = indicemenor;
-            } while (nodoactual != -1);
-            List<int> dijkstra = new List<int>();
-
-            int nodo = (int)fin;
-
-            while (nodo != (int)inicio)
-            {
-                dijkstra.Add(nodo);
-                nodo = tablavisitados[nodo, 2];
-
-            }
-            dijkstra.Add((int)inicio);
-            dijkstra.Reverse();
+            double distancia =  Math.Sqrt(pedido1.barrio.x * pedido1.barrio.x - pedido2.barrio.x * pedido2.barrio.x + pedido1.barrio.y * pedido1.barrio.y - pedido2.barrio.y * pedido2.barrio.y);
+            return distancia;
         }
-    }
+
+       
+
+        public cPedido pedidomascercano(List<cPedido> Almacen, cPedido pedido)
+        {
+            cPedido minimo = Almacen[0];
+            for (int i=0;i<Almacen.Count;i++)
+            {
+                if (calculardistancia(pedido, Almacen[i])< calculardistancia(pedido, minimo))
+                {
+                    minimo = Almacen[i];
+                }
+               
+            }
+               
+                return minimo;
+        }
+        public cPedido primerpedido(List<cPedido> Almacen)
+        {
+            cPedido minimo = Almacen[0];
+            for (int i = 0; i < Almacen.Count; i++)
+            {
+                if (Math.Sqrt(Almacen[i].barriecito.x* Almacen[i].barriecito.x + Almacen[i].barriecito.y * Almacen[i].barriecito.y)< Math.Sqrt(minimo.barriecito.x * minimo.barriecito.x + minimo.barriecito.y * minimo.barriecito.y))
+                {
+                    minimo = Almacen[i];
+                }
+
+            }
+
+            return minimo;
+        }
+        public void recorrido(List<cPedido> Almacen)
+        {
+            cbarrios Comuna01 = new cbarrios("comuna 1", 10, 4);
+            cbarrios Comuna02 = new cbarrios("comuna 2", 9, 5);
+            cbarrios Comuna03 = new cbarrios("comuna 3", 9, 4);
+            cbarrios Comuna04 = new cbarrios("comuna 4", 10, 0);
+            cbarrios Comuna05 = new cbarrios("comuna 5", 8, 1);
+            cbarrios Comuna06 = new cbarrios("comuna 6", 7, 1);
+            cbarrios Comuna07 = new cbarrios("comuna 7", 7, 0);
+            cbarrios Comuna08 = new cbarrios("comuna 8", 4, -3);
+            cbarrios Comuna09 = new cbarrios("comuna 9 ", 1, -1);
+            cbarrios Comuna10 = new cbarrios("comuna 10", 1, 1);
+            cbarrios Comuna11 = new cbarrios("comuna 11", 1, 3);
+            cbarrios Comuna12 = new cbarrios("comuna 12", 2, 8);
+
+            cbarrios Comuna13 = new cbarrios("comuna 13", 4, 8);
+            cbarrios Comuna14 = new cbarrios("comuna 14", 5, 7);
+            cbarrios Comuna15 = new cbarrios("comuna 15", 3, 3);
+            cbarrios tresfebrero = new cbarrios("tres de febrero", -1, 1);
+            cbarrios moron = new cbarrios("moron", -2, 0);
+            cbarrios VicenteLopez = new cbarrios("vicente lopez", 0, 10);
+            cbarrios SanIsidro = new cbarrios("san isidro", -3, 11);
+            cbarrios Liniers = new cbarrios("linieros", 0, 0);
+            cbarrios Lanus = new cbarrios("lanus", 9, -5);
+            cbarrios LaMatanza = new cbarrios("la matanza", 0, -2);
+            cbarrios Avellaneda = new cbarrios("avellaneda", 11, 0);
+            cbarrios Lomas = new cbarrios("lomas de zamora", 4, -4);
+
+            cPedido primero = primerpedido(Almacen);
+            List<cPedido> recorrido = new List<cPedido>();
+            recorrido.Add(primero);
+            Almacen.Remove(primero);
+            while (Almacen.Count > 0)
+            {
+                for (int i = 0; i < Almacen.Count; i++)
+                {
+                    cPedido segundo = pedidomascercano(Almacen, primero);
+                    recorrido.Add(segundo);
+                    Almacen.Remove(segundo);
+                    primero = segundo;
+                }
+            }
+
+        }
+    
     
 
 }
