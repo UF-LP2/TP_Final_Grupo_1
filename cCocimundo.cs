@@ -16,51 +16,34 @@ namespace tp_final
 
         public cCocimundo(List<cPedido> _Almacen, cVehiculo _Camioneta, cVehiculo _Furgon, cVehiculo _Camion)
         {
-            Almacen= _Almacen;
-            Camioneta= _Camioneta;
-            Furgon= _Furgon;
-            Camion= _Camion;
+            Almacen = _Almacen;
+            Camioneta = _Camioneta;
+            Furgon = _Furgon;
+            Camion = _Camion;
 
         }
         public void cargarvehiculos()
         {
-            List<cPedido> Filtro_camioneta = new List<cPedido>();
-            List<cPedido> Filtro_furgon = new List<cPedido>();
-            List<cPedido> Filtro_camion = new List<cPedido>();
 
-            for (int i = 0; i < Almacen.Count; i++)
-            {
-                
-                    Filtro_camion.Add(Almacen[i]);
-                   
-                
-            }
-            Camion.CargarVehiculo(Filtro_camion);
+            Camion.CargarVehiculo(Almacen);
 
-            for (int i = 0; i < Almacen.Count; i++)
-            {
-                if (Almacen[i].necesita_elevador == false)
-                {
-                    Filtro_furgon.Add(Almacen[i]);
-                    
-                }
-            }
-            Furgon.CargarVehiculo(Filtro_furgon);
+            Furgon.CargarVehiculo(Almacen);
 
-            for (int i = 0; i < Almacen.Count; i++)
-            {
-                if (Almacen[i].volumen < 1 && Almacen[i].necesita_elevador == false)
-                {
-                    Filtro_camioneta.Add(Almacen[i]);
-                    
-                }
-            }
-            Camioneta.CargarVehiculo(Filtro_camion);
-
+            Camioneta.CargarVehiculo(Almacen);
 
 
         }
+        public void iniciarrecorrido()
+        {
+            if (Camion.Pedidos_a_bordo.Count() > 0) { Camion.recorrido(); }
+            if (Furgon.Pedidos_a_bordo.Count() > 0) { Furgon.recorrido(); }
+            if (Camioneta.Pedidos_a_bordo.Count() > 0) { Camioneta.recorrido(); }
+
+            Camion.entregarpedidios();
+            Camioneta.entregarpedidios();
+            Furgon.entregarpedidios();
+        }
 
     }
-   
+
 }

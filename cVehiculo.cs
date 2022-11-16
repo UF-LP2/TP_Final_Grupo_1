@@ -33,6 +33,7 @@ namespace tp_final
         protected int nodosrecorridos;
         protected int tanquelleno;
         public List<cPedido> Pedidos_a_bordo;
+        public  List<cPedido> Recorrido;
 
         public cVehiculo(int iD, double _volumen, int nodosrecorridos, int tanquelleno)
         {
@@ -41,6 +42,7 @@ namespace tp_final
             this.nodosrecorridos = 0; //arranca siempre en 0
             this.tanquelleno = tanquelleno;
             Pedidos_a_bordo = new List<cPedido>();
+            Recorrido = new List<cPedido>();
 
 
         }
@@ -50,10 +52,10 @@ namespace tp_final
             string[,] lista_productos = new string[(int)(volumen / 0.5), N];
             double[,] matriz_beneficio = new double[(int)(volumen / 0.5), N];
             double volumen_actual = 0.5;
-            for (int i = 0; i < Almacen.Count; i++)
+            for (int i = 0; i < N; i++)
             {
                 volumen_actual = 0.5;
-                for (int j = 0; j < 11; j++)
+                for (int j = 0; j < (int)(volumen / 0.5); j++)
                 {
                     //solo primera fila
                     if (i == 0 && Almacen[i].getVolumen() <= volumen_actual)
@@ -138,64 +140,54 @@ namespace tp_final
                 }
 
             }
-            for (int q = 0; q < Almacen.Count; q++)
+
+            /*for (int q = 0; q < Almacen.Count; q++)
             {
-                for (int h = 0; h < 11; h++)
+                for (int h = 0; h < (int)(volumen / 0.5); h++)
                 {
                     Console.Write(matriz_beneficio[h, q]);
                     Console.Write(" ");
                 }
                 Console.WriteLine("");
-            }
+            }*/
 
 
-            string codigos = lista_productos[(int)(volumen / 0.5) - 1, Almacen.Count - 1];
-            string[] Codigos = codigos.Split(",");
 
-            for (int w = 0; w < Codigos.Length; w++)
+            if (Almacen.Count > 0)
             {
-                Console.WriteLine(Codigos[w]);
-                for (int i = 0; i < Almacen.Count; i++)
-                {
+                string codigos = lista_productos[(int)(volumen / 0.5) - 1, Almacen.Count - 1];
+                string[] Codigos = codigos.Split(",");
 
-                    if (Almacen[i].getID() == Codigos[w])
+                for (int w = 0; w < Codigos.Length; w++)
+                {
+                    Console.WriteLine(Codigos[w]);
+                    for (int i = 0; i < Almacen.Count; i++)
                     {
-                        Pedidos_a_bordo.Add(Almacen[i]);
-                        Almacen.Remove(Almacen[i]);
+
+                        if (Almacen[i].getID() == Codigos[w])
+                        {
+                            Pedidos_a_bordo.Add(Almacen[i]);
+                            Almacen.Remove(Almacen[i]);
+                        }
                     }
                 }
-
             }
 
         }
-        public double calculardistancia(cPedido pedido1,cPedido pedido2 )
+        public double calculardistancia(cPedido pedido1, cPedido pedido2)
         {
-            double distancia =  Math.Sqrt(pedido1.barrio.x * pedido1.barrio.x - pedido2.barrio.x * pedido2.barrio.x + pedido1.barrio.y * pedido1.barrio.y - pedido2.barrio.y * pedido2.barrio.y);
+            double distancia = Math.Sqrt(pedido1.barriecito.x * pedido1.barriecito.x - pedido2.barriecito.x * pedido2.barriecito.x + pedido1.barriecito.y * pedido1.barriecito.y - pedido2.barriecito.y * pedido2.barriecito.y);
             return distancia;
         }
 
-       
+
 
         public cPedido pedidomascercano(List<cPedido> Almacen, cPedido pedido)
         {
             cPedido minimo = Almacen[0];
-            for (int i=0;i<Almacen.Count;i++)
-            {
-                if (calculardistancia(pedido, Almacen[i])< calculardistancia(pedido, minimo))
-                {
-                    minimo = Almacen[i];
-                }
-               
-            }
-               
-                return minimo;
-        }
-        public cPedido primerpedido(List<cPedido> Almacen)
-        {
-            cPedido minimo = Almacen[0];
             for (int i = 0; i < Almacen.Count; i++)
             {
-                if (Math.Sqrt(Almacen[i].barriecito.x* Almacen[i].barriecito.x + Almacen[i].barriecito.y * Almacen[i].barriecito.y)< Math.Sqrt(minimo.barriecito.x * minimo.barriecito.x + minimo.barriecito.y * minimo.barriecito.y))
+                if (calculardistancia(pedido, Almacen[i]) < calculardistancia(pedido, minimo))
                 {
                     minimo = Almacen[i];
                 }
@@ -204,8 +196,24 @@ namespace tp_final
 
             return minimo;
         }
-        public void recorrido(List<cPedido> Almacen)
+        public cPedido primerpedido(List<cPedido> Almacen)
         {
+            cPedido minimo = Almacen[0];
+            for (int i = 0; i < Almacen.Count; i++)
+            {
+                if (Math.Sqrt(Almacen[i].barriecito.x * Almacen[i].barriecito.x + Almacen[i].barriecito.y * Almacen[i].barriecito.y) < Math.Sqrt(minimo.barriecito.x * minimo.barriecito.x + minimo.barriecito.y * minimo.barriecito.y))
+                {
+                    minimo = Almacen[i];
+                }
+
+            }
+
+            return minimo;
+        }
+        public void recorrido()
+        {
+            
+
             cbarrios Comuna01 = new cbarrios("comuna 1", 10, 4);
             cbarrios Comuna02 = new cbarrios("comuna 2", 9, 5);
             cbarrios Comuna03 = new cbarrios("comuna 3", 9, 4);
@@ -232,24 +240,36 @@ namespace tp_final
             cbarrios Avellaneda = new cbarrios("avellaneda", 11, 0);
             cbarrios Lomas = new cbarrios("lomas de zamora", 4, -4);
 
-            cPedido primero = primerpedido(Almacen);
-            List<cPedido> recorrido = new List<cPedido>();
-            recorrido.Add(primero);
-            Almacen.Remove(primero);
-            while (Almacen.Count > 0)
+            cPedido primero = primerpedido(Pedidos_a_bordo);
+            
+            Recorrido.Add(primero);
+            Pedidos_a_bordo.Remove(primero);
+            while (Pedidos_a_bordo.Count > 0)
             {
-                for (int i = 0; i < Almacen.Count; i++)
+                for (int i = 0; i < Pedidos_a_bordo.Count; i++)
                 {
-                    cPedido segundo = pedidomascercano(Almacen, primero);
-                    recorrido.Add(segundo);
-                    Almacen.Remove(segundo);
+                    cPedido segundo = pedidomascercano(Pedidos_a_bordo, primero);
+                    Recorrido.Add(segundo);
+                    Pedidos_a_bordo.Remove(segundo);
                     primero = segundo;
                 }
             }
-
+            Pedidos_a_bordo = Recorrido;
         }
-    
-    
+
+        public void entregarpedidios()
+        {
+            for (int i = 0; i < Recorrido.Count; i++)
+            {
+                Console.Write("Pedido con ID: ");
+                Console.Write(Recorrido[i].ID);
+                Console.Write("Entregado en: ");
+                Console.WriteLine(Recorrido[i].barrio);
+            }
+        }
+
+    }
+
 
 }
 
