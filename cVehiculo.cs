@@ -11,8 +11,7 @@ using System.Transactions;
 
 namespace tp_final
 {
-
-    internal class cVehiculo
+    public class cVehiculo
     {
         protected readonly int ID;
         protected double volumen;
@@ -36,7 +35,7 @@ namespace tp_final
             string[,] lista_productos = new string[(int)(volumen / 0.5), N];
             double[,] matriz_beneficio = new double[(int)(volumen / 0.5), N];
             double volumen_actual = 0.5;
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < Almacen.Count; i++)
             {
                 volumen_actual = 0.5;
                 for (int j = 0; j < 11; j++)
@@ -124,7 +123,7 @@ namespace tp_final
                 }
 
             }
-            for (int q = 0; q < N; q++)
+            for (int q = 0; q < Almacen.Count; q++)
             {
                 for (int h = 0; h < 11; h++)
                 {
@@ -134,23 +133,24 @@ namespace tp_final
                 Console.WriteLine("");
             }
 
+           
+                string codigos = lista_productos[(int)(volumen / 0.5) - 1, Almacen.Count - 1];
+                string[] Codigos = codigos.Split(",");
 
-            string codigos = lista_productos[(int)(volumen / 0.5) - 1, N - 1];
-            string[] Codigos = codigos.Split(",");
-
-            for (int w = 0; w < Codigos.Length; w++)
-            {
-                Console.WriteLine(Codigos[w]);
-                for (int i = 0; i < N; i++)
+                for (int w = 0; w < Codigos.Length; w++)
                 {
+                    Console.WriteLine(Codigos[w]);
+                    for (int i = 0; i < Almacen.Count; i++)
+                    {
 
-                    if (Almacen[i].getID() == Codigos[w]) Pedidos_a_bordo.Add(Almacen[i]);
-                }
+                        if (Almacen[i].getID() == Codigos[w])
+                        {
+                            Pedidos_a_bordo.Add(Almacen[i]);
+                            Almacen.Remove(Almacen[i]);
+                        }
+                    }
+                
             }
-
-
-
-
 
         }
         public void recorrido(List<cPedido> Almacen, cPedido.barrios inicio, cPedido.barrios fin)

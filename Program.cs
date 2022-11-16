@@ -25,17 +25,17 @@ static class Program
         Application.Run(new Form1());
 
         cVehiculo Furgoneta = new cVehiculo(5,5.5,0,0);
-
-     
-      
+        cVehiculo Camioneta = new cVehiculo(5, 5.5, 0, 0);
+        cVehiculo Camion = new cVehiculo(5, 5.5, 0, 0);
 
         List<cPedido> Almacen = csv_.read_csv();
 
+        cCocimundo Cocimundo = new cCocimundo(Almacen,Camioneta,Furgoneta,Camion);
+
+        Cocimundo.cargarvehiculos();
  
 
        
-
-       Furgoneta.CargarVehiculo(Almacen);
 
 
 

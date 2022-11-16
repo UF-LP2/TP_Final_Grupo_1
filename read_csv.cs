@@ -32,6 +32,8 @@ namespace csvfiles {
                     };
                     record.volumen = record.alto * record.ancho * record.largo;
                     record.beneficio = (record.volumen * record.peso);
+                    if(record.volumen >2) record.necesita_elevador = false;
+                    if (record.volumen <= 2) record.necesita_elevador = true;
                     records.Add(record);
                 }
 
